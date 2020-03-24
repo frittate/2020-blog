@@ -1,5 +1,8 @@
 <template>
   <div class="relative">
+    <div id="hack" class="hidden text-stories bg-stories text-home bg-home text-travel bg-travel text-web bg-web text-kitchen bg-kitchen text-thoughts bg-thoughts text-creative bg-creative">
+      .
+    </div>
     <navigation />
     <nuxt />
   </div>
