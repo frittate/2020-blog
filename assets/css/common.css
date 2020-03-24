@@ -1,0 +1,76 @@
+* {
+  -webkit-font-smoothing: antialiased;
+}
+::selection {
+  background: #FFF7C7; /* WebKit/Blink Browsers */
+}
+::-moz-selection {
+  background: #FFF7C7; /* Gecko Browsers */
+}
+
+/*
+ * Globals
+ */
+body {
+  padding: 0 0 0 0;
+  line-height: 1.5;
+  font-size: 62.5%;
+  color: white;
+}
+
+.blog-main h1, .blog-main .h1,
+.blog-main h2, .blog-main .h2,
+.blog-main h3, .blog-main .h3,
+.blog-main h4, .blog-main .h4,
+.blog-main h5, .blog-main .h5,
+.blog-main h6, .blog-main .h6 {
+  color: #353535;
+  text-align: left;
+}
+
+h1, h2 {
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+h1 {
+  font-weight: normal;
+}
+
+h3 {
+  margin-bottom: 1rem;
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.textslice p {
+  font-family: 'IBM Plex Serif';
+  @apply text-base mb-5 leading-relaxed;
+}
+
+nav a {
+  font-family: 'IBM Plex Sans';
+}
+
+pre {
+  margin-bottom: 20px;
+  padding-left: 40px;
+}
+strong {
+  font-weight: bold;
+}
+em {
+  font-style: italic;
+}
+img {
+  width: 100%;
+  height: auto;
+}
+.container {
+  max-width: 700px;
+  margin: auto;
+}
+
+/* Media Queries */
+@media (max-width: 767px) {
+  
+}
