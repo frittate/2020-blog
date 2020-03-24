@@ -1,6 +1,6 @@
 <template>
   <div class="relative">
-    <div id="hack" class="hidden text-stories bg-stories text-home bg-home text-travel bg-travel text-web bg-web text-kitchen bg-kitchen text-thoughts bg-thoughts text-creative bg-creative">
+    <div id="hack" class="hidden text-stories bg-stories border-stories text-home bg-home border-home text-travel bg-travel border-home text-web bg-web border-web text-kitchen bg-kitchen border-kitchen text-thoughts bg-thoughts border-thoughts text-creative bg-creative border-creative">
       .
     </div>
     <navigation />
