@@ -1,7 +1,7 @@
 <template>
   <div class="">
     <button v-show="!expanded" class="lg:hidden fixed w-screen bg-home text-center text-3xl text-black font-bold" @click.prevent="toggleMenu">
-      Menü
+      Menu
     </button>
     <nav class="fixed lg:absolute w-screen bg-home lg:bg-transparent lg:w-full top-0 left-0 p-8 lg:p-0 items-center lg:pl-6 h-screen lg:h-12 z-50 flex flex-col lg:flex-row justify-around lg:justify-start" :class="showMenu">
       <menu-item v-for="route in routes" :key="route.id" :route="route" />
@@ -81,6 +81,7 @@ export default {
   methods: {
     toggleMenu () {
       this.expanded = !this.expanded
+      document.body.classList.toggle('prevent-scroll')
     }
   }
 }

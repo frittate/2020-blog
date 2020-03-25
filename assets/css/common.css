@@ -44,7 +44,15 @@ h3 {
 
 .textslice p, li {
   font-family: 'IBM Plex Serif';
-  @apply text-base mb-5 leading-relaxed;
+  @apply text-base mb-5 leading-relaxed px-2;
+}
+
+.textslice p.block-img {
+  @apply px-0;
+}
+
+.textslice .block-embed iframe {
+  @apply mx-auto;
 }
 
 .textslice a {

@@ -89,7 +89,7 @@ export default function (type, element, content, children) {
 
     case Elements.embed:
       return (`
-        <div data-oembed="${element.oembed.embed_url}"
+        <div class="block-embed" data-oembed="${element.oembed.embed_url}"
           data-oembed-type="${element.oembed.type}"
           data-oembed-provider="${element.oembed.provider_name}"
         >

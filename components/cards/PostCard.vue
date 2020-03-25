@@ -52,7 +52,7 @@ export default {
       if (this.tiny) {
         newClass.push('flex-thirds mb-3 lg:mb-0')
       } else {
-        newClass.push('min-h-card w-56')
+        newClass.push('min-h-card w-full lg:w-56')
       }
       return newClass
     },
