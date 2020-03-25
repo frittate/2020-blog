@@ -1,6 +1,6 @@
 <template>
   <div class="relative">
-    <div id="hack" class="hidden text-stories bg-stories border-stories text-home bg-home border-home text-travel bg-travel border-home text-web bg-web border-web text-kitchen bg-kitchen border-kitchen text-thoughts bg-thoughts border-thoughts text-creative bg-creative border-creative">
+    <div id="hack" class="hidden text-stories bg-stories hover:bg-stories border-stories text-home bg-home border-home hover:bg-home text-travel bg-travel border-travel hover:bg-travel text-web bg-web border-web hover:bg-web text-kitchen bg-kitchen border-kitchen hover:bg-kitchen text-thoughts bg-thoughts border-thoughts hover:bg-thoughts text-creative bg-creative border-creative hover:bg-creative">
       .
     </div>
     <navigation />
@@ -36,5 +36,13 @@ html {
 *:after {
   box-sizing: border-box;
   margin: 0;
+}
+
+.page-enter-active, .page-leave-active {
+  transition: all .25s ease-out;
+}
+.page-enter, .page-leave-active {
+  opacity: 0;
+  transform-origin: 50% 50%;
 }
 </style>

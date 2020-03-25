@@ -4,8 +4,8 @@
       <h1 class="text-4xl pb-10 uppercase">
         Home
       </h1>
-      <div class="grid gap-0 grid-cols-2 grid-rows-layout flex-grow border border-gray-600">
-        <div class="col-start-1 col-end-2 row-start-1 row-end-3 py-5 pl-5 pr-2 border-r border-b border-gray-600 relative">
+      <div class="flex flex-col lg:grid gap-0 grid-cols-1 lg:grid-cols-2 grid-rows-1 lg:grid-rows-layout flex-grow border border-gray-600">
+        <div class="lg:col-start-1 lg:col-end-2 lg:row-start-1 lg:row-end-3 py-16 lg:py-5 pl-5 pr-2 border-b lg:border-r border-gray-600 relative">
           <div class="max-w-sm">
             <h2 class="text-3xl mb-4">
               {{ firstFeatured.data.title[0].text }}
@@ -23,16 +23,16 @@
           <div class="absolute bottom-0 right-0 pr-2 pb-5">
             <read-on-button :slug="firstFeatured.uid" :category="firstFeatured.data.category.uid" />
           </div>
-          <div v-if="firstFeatured.data.preview_thumb" class="absolute bottom-0 left-0 pl-5 pb-5">
+          <div v-if="Object.keys(firstFeatured.data.article_image.card).length" class="absolute bottom-0 left-0 pl-5 pb-5 overflow-hidden">
             <img
-              :src="firstFeatured.data.preview_thumb.url"
-              :width="firstFeatured.data.preview_thumb.dimensions.width"
-              :height="firstFeatured.data.preview_thumb.dimensions.height"
-              :alt="firstFeatured.data.preview_thumb.alt"
+              :src="firstFeatured.data.article_image.thumb.url"
+              :width="firstFeatured.data.article_image.thumb.dimensions.width"
+              :height="firstFeatured.data.article_image.thumb.dimensions.height"
+              :alt="firstFeatured.data.article_image.thumb.alt"
             >
           </div>
         </div>
-        <div class="col-start-2 col-end-3 row-start-1 row-end-2 py-5 pl-5 pr-2 border-b border-gray-600 relative">
+        <div class="lg:col-start-2 lg:col-end-3 lg:row-start-1 lg:row-end-2 py-16 lg:py-5 pl-5 pr-2 border-b border-gray-600 relative">
           <div class="md:max-w-lg lg:max-w-2xl">
             <h2 class="text-3xl mb-4">
               {{ secondFeatured.data.title[0].text }}
@@ -51,7 +51,7 @@
             <read-on-button :slug="secondFeatured.uid" :category="firstFeatured.data.category.uid" />
           </div>
         </div>
-        <div class="col-start-2 col-end-3 row-start-2 row-end-3 py-5 pl-5 pr-2 border-b border-gray-600 relative">
+        <div class="lg:col-start-2 lg:col-end-3 lg:row-start-2 lg:row-end-3 py-16 lg:py-5 pl-5 pr-2 border-b border-gray-600 relative">
           <div class="max-w-lg">
             <h2 class="text-3xl mb-4">
               {{ thirdFeatured.data.title[0].text }}
@@ -70,33 +70,10 @@
             <read-on-button :slug="thirdFeatured.uid" :category="firstFeatured.data.category.uid" />
           </div>
         </div>
-        <div class="col-start-1 col-end-3 row-start-3 row-end-4 py-5 pl-5 pr-2 flex items-stretch">
-          <post-card v-for="entry in posts" :key="entry.uid" :entry="entry" />
+        <div class="col-start-1 col-end-3 row-start-3 p-5">
+          <post-card-grid :entries="postsWithoutFeatured" />
         </div>
       </div>
-      <!--  <logo />
-      <h1 class="title text-black bg-black">
-        2020-blog
-      </h1>
-      <h2 class="subtitle">
-        Personal Blog with Nuxt and Prismic
-      </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div> -->
     </div>
   </div>
 </template>
@@ -107,14 +84,14 @@
 import { constrainChars, dateFormatter } from '~/utils/textTools'
 import CategoryTag from '~/components/global/CategoryTag'
 import ReadOnButton from '~/components/global/ReadOnButton'
-import PostCard from '~/components/PostCard'
+import PostCardGrid from '~/components/PostCardGrid'
 
 export default {
   components: {
     // Logo
     CategoryTag,
     ReadOnButton,
-    PostCard
+    PostCardGrid
   },
   async asyncData ({ $prismic, error }) {
     try {
@@ -145,40 +122,31 @@ export default {
       return entry[0]
     },
     thirdFeatured () {
-      const entry = this.posts.filter(el => el.data.isfeatured === '1')
-      return entry[0]
+      const entry = this.posts.filter(el => el.data.isfeatured === '3')
+      if (entry.length) { return entry[0] }
+      return this.posts[0]
+    },
+    postsWithoutFeatured () {
+      const entry = this.posts.filter(el => !el.data.isfeatured)
+      if (entry.length) { return entry }
+      return this.posts
     }
   },
   methods: {
     constrainCharacters (text, length) {
+      if (Object.keys(this.firstFeatured.data.article_image.card).length === 0) {
+        length *= 2
+      }
       return constrainChars(text, length)
     },
     formatDate (date) {
       return dateFormatter(date)
     }
+  },
+  head () {
+    return {
+      title: 'ADV [home] | Sebastian Martin | Blog'
+    }
   }
 }
 </script>
-
-<style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
-</style>

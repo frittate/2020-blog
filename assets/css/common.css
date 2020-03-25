@@ -70,6 +70,10 @@ img {
   margin: auto;
 }
 
+.grid-cols-postCardGrid {
+  justify-items: center;
+}
+
 /* Media Queries */
 @media (max-width: 767px) {
   

@@ -2,16 +2,25 @@
   <div class="w-100 min-h-screen px-6 pb-6 pt-12 flex flex-col" :class="colorClass">
     <div class="bg-white text-black px-10 pt-8 pb-10 flex-grow flex flex-col">
       <div id="content" class="max-w-2xl mx-auto">
+        <nuxt-link :to="backLink" class="text-xs text-black">
+          &larr; back to {{ document.category.uid }}
+        </nuxt-link>
         <h1 class="text-4xl mb-4 uppercase">
           {{ $prismic.asText(document.title) }}
         </h1>
-        <p class="text-gray-600 text-base mb-16">
+        <p class="text-gray-600 text-base mb-8">
           {{ formatDate (meta.date) }}
         </p>
+        <div v-if="Object.keys(document.article_image.card).length" class="mb-16">
+          <img :src="document.article_image.url" alt="">
+        </div>
         <p class="text-lg font-bold mb-10">
           {{ $prismic.asText(document.lead) }}
         </p>
         <slices-block :slices="slices" />
+        <button class="text-base text-black mt-16" @click.prevent="scrollToTop">
+          &uarr; scroll to top
+        </button>
       </div>
     </div>
   </div>
@@ -51,11 +60,22 @@ export default {
         return [`bg-${this.document.category.uid}`]
       }
       return 'bg-home'
+    },
+    backLink () {
+      return `/${this.$route.params.category}`
     }
   },
   methods: {
     formatDate (date) {
       return dateFormatter(date)
+    },
+    scrollToTop () {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+  },
+  head () {
+    return {
+      title: `ADV [${this.document.title[0].text} -- ${this.$route.params.category}] | Sebastian Martin`
     }
   }
 }

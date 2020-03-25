@@ -1,13 +1,16 @@
 <template>
-  <div class="card w-56 border flex flex-col min-h-card mr-10" :class="colorClassBorder">
+  <div class="card w-56 border flex flex-col min-h-card" :class="colorClassBorder">
     <p class="py-2 text-xs flex justify-center items-center" :class="colorClass">
       #{{ entry.data.category.uid }}
     </p>
+    <div v-if="image" class="h-24 overflow-hidden">
+      <img :src="image.url" alt="" srcset="">
+    </div>
     <div class="content flex flex-col px-5 pt-5 pb-2 flex-grow">
       <h2 class="text-base mb-5">
         {{ entry.data.title[0].text }}
       </h2>
-      <p class="text-xs flex-grow">
+      <p class="text-xs flex-grow mb-5">
         {{ lead }}
       </p>
       <p class="text-xs text-gray-500">
@@ -37,8 +40,8 @@ export default {
   },
   computed: {
     colorClassBorder () {
-      if (this.category) {
-        return `border-${this.category}`
+      if (this.entry.data.category.uid) {
+        return `border-${this.entry.data.category.uid}`
       }
       return 'border-home'
     },
@@ -58,6 +61,16 @@ export default {
     },
     link () {
       return `/${this.entry.data.category.uid}/${this.entry.uid}`
+    },
+    image () {
+      if (Object.keys(this.entry.data.article_image.card).length !== 0) {
+        return {
+          url: this.entry.data.article_image.card.url,
+          width: this.entry.data.article_image.card.dimensions.width,
+          height: this.entry.data.article_image.card.dimensions.height
+        }
+      }
+      return false
     }
   }
 }

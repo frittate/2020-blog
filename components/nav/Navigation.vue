@@ -1,7 +1,15 @@
 <template>
-  <nav class="absolute w-100 top-0 left-0 pl-6 h-12 flex items-center">
-    <menu-item v-for="route in routes" :key="route.id" :route="route" />
-  </nav>
+  <div class="">
+    <button v-show="!expanded" class="lg:hidden absolute w-screen bg-home text-center text-3xl text-black font-bold" @click.prevent="toggleMenu">
+      Menü
+    </button>
+    <nav class="absolute w-screen bg-home lg:bg-transparent lg:w-full top-0 left-0 p-8 lg:p-0 items-center lg:pl-6 h-screen lg:h-12 z-50 flex flex-col lg:flex-row justify-around lg:justify-start" :class="showMenu">
+      <menu-item v-for="route in routes" :key="route.id" :route="route" />
+      <button class="lg:hidden text-3xl text-black font-bold py-10" @click.prevent="toggleMenu">
+        &times;
+      </button>
+    </nav>
+  </div>
 </template>
 
 <script>
@@ -48,7 +56,26 @@ export default {
           url: 'kitchen',
           name: 'Kitchen'
         }
-      ]
+      ],
+      expanded: false
+    }
+  },
+  computed: {
+    showMenu () {
+      if (this.expanded) {
+        return ['visible']
+      }
+      return ['invisible lg:visible']
+    }
+  },
+  watch: {
+    $route () {
+      this.expanded = false
+    }
+  },
+  methods: {
+    toggleMenu () {
+      this.expanded = !this.expanded
     }
   }
 }

@@ -1,7 +1,7 @@
 <template>
   <nuxt-link
     :to="link"
-    class="text-lg font-bold opacity-50 mr-6"
+    class="text-3xl lg:text-lg font-bold opacity-50 lg:mr-6"
     :class="linkColor"
   >
     {{ route.name }}

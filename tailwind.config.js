@@ -17,7 +17,10 @@ module.exports = {
         creative: '#751861'
       },
       gridTemplateRows: {
-        layout: '1fr 1fr 50%'
+        layout: '1fr 1fr'
+      },
+      gridTemplateColumns: {
+        postCardGrid: 'repeat(auto-fill, minMax(260px, 1fr))'
       },
       minHeight: {
         card: '300px'

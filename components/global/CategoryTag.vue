@@ -16,7 +16,7 @@ export default {
   },
   computed: {
     linkDestination () {
-      return `/categories/${this.category}`
+      return `/${this.category}`
     },
     colorClass () {
       if (this.category.length) {
