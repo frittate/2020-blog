@@ -1,5 +1,5 @@
 <template>
-  <nuxt-link :to="link" class="px-4 py-1 text-base text-black bg-white border border-gray-600 hover:bg-black hover:text-white transition-colors duration-500 ease-in-out">
+  <nuxt-link :to="link" class="px-4 py-1 text-base text-black bg-white border-2 border-gray-600 hover:bg-black hover:text-white transition-colors duration-500 ease-in-out">
     Read on
   </nuxt-link>
 </template>

@@ -23,7 +23,7 @@
           <div class="absolute bottom-0 right-0 pr-2 pb-5">
             <read-on-button :slug="firstFeatured.uid" :category="firstFeatured.data.category.uid" />
           </div>
-          <div v-if="Object.keys(firstFeatured.data.article_image.card).length" class="absolute bottom-0 left-0 pl-5 pb-5 overflow-hidden">
+          <div v-if="Object.keys(firstFeatured.data.article_image.thumb).length" class="absolute bottom-0 left-0 pl-5 pb-5 overflow-hidden">
             <img
               :src="firstFeatured.data.article_image.thumb.url"
               :width="firstFeatured.data.article_image.thumb.dimensions.width"
@@ -48,7 +48,7 @@
             <category-tag :category="secondFeatured.data.category.uid" />
           </div>
           <div class="absolute bottom-0 right-0 pr-2 pb-5">
-            <read-on-button :slug="secondFeatured.uid" :category="firstFeatured.data.category.uid" />
+            <read-on-button :slug="secondFeatured.uid" :category="secondFeatured.data.category.uid" />
           </div>
         </div>
         <div class="lg:col-start-2 lg:col-end-3 lg:row-start-2 lg:row-end-3 py-16 lg:py-5 pl-5 pr-2 border-b border-gray-600 relative">
@@ -64,10 +64,10 @@
             </p>
           </div>
           <div class="absolute top-0 right-0 pr-2 pt-5">
-            <category-tag :category="'travel'" />
+            <category-tag :category="thirdFeatured.data.category.uid" />
           </div>
           <div class="absolute bottom-0 right-0 pr-2 pb-5">
-            <read-on-button :slug="thirdFeatured.uid" :category="firstFeatured.data.category.uid" />
+            <read-on-button :slug="thirdFeatured.uid" :category="thirdFeatured.data.category.uid" />
           </div>
         </div>
         <div class="col-start-1 col-end-3 row-start-3 p-5">
@@ -114,20 +114,23 @@ export default {
   },
   computed: {
     firstFeatured () {
-      const entry = this.posts.filter(el => el.data.isfeatured === '1')
-      return entry[0]
+      return this.featuredPosts[0]
     },
     secondFeatured () {
-      const entry = this.posts.filter(el => el.data.isfeatured === '2')
-      return entry[0]
+      return this.featuredPosts[1]
     },
     thirdFeatured () {
-      const entry = this.posts.filter(el => el.data.isfeatured === '3')
-      if (entry.length) { return entry[0] }
-      return this.posts[0]
+      return this.featuredPosts[2]
+    },
+    featuredPosts () {
+      const featured = this.posts.filter(el => el.data.featured)
+      if (featured.length) {
+        return featured.map(a => [Math.random(), a]).sort((a, b) => a[0] - b[0]).map(a => a[1])
+      }
+      return this.posts
     },
     postsWithoutFeatured () {
-      const entry = this.posts.filter(el => !el.data.isfeatured)
+      const entry = this.posts.filter(el => !el.data.featured)
       if (entry.length) { return entry }
       return this.posts
     }
