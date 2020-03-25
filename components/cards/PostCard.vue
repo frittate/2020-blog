@@ -1,23 +1,23 @@
 <template>
-  <div class="card w-56 border flex flex-col min-h-card" :class="colorClassBorder">
+  <div class="card border flex flex-col flex-1" :class="sizeClass">
     <p class="py-2 text-xs flex justify-center items-center" :class="colorClass">
       #{{ entry.data.category.uid }}
     </p>
-    <div v-if="image" class="h-24 overflow-hidden">
+    <div v-if="image && !tiny" class="h-24 overflow-hidden">
       <img :src="image.url" alt="" srcset="">
     </div>
-    <div class="content flex flex-col px-5 pt-5 pb-2 flex-grow">
+    <div class="content flex flex-col flex-grow" :class="paddingTiny">
       <h2 class="text-base mb-5">
         {{ entry.data.title[0].text }}
       </h2>
-      <p class="text-xs flex-grow mb-5">
+      <p v-if="!tiny" class="text-xs flex-grow mb-5">
         {{ lead }}
       </p>
-      <p class="text-xs text-gray-500">
+      <p class="text-xs text-gray-500 mt-auto">
         {{ date }}
       </p>
     </div>
-    <nuxt-link :to="link" class="py-2 text-xs flex justify-center items-center bg-white text-black">
+    <nuxt-link :to="link" class="py-2 text-xs flex justify-center items-center" :class="tinyClass">
       Read on
     </nuxt-link>
   </div>
@@ -31,6 +31,9 @@ export default {
     entry: {
       type: Object,
       required: true
+    },
+    tiny: {
+      type: Boolean
     }
   },
   data () {
@@ -39,11 +42,25 @@ export default {
     }
   },
   computed: {
-    colorClassBorder () {
+    sizeClass () {
+      const newClass = []
       if (this.entry.data.category.uid) {
-        return `border-${this.entry.data.category.uid}`
+        newClass.push(`border-${this.entry.data.category.uid}`)
+      } else {
+        newClass.push('border-home')
       }
-      return 'border-home'
+      if (this.tiny) {
+        newClass.push('flex-thirds mb-3 lg:mb-0')
+      } else {
+        newClass.push('min-h-card w-56')
+      }
+      return newClass
+    },
+    paddingTiny () {
+      if (this.tiny) {
+        return ['p-2']
+      }
+      return ['px-5', 'pt-5', 'pb-2']
     },
     colorClass () {
       const tag = this.entry.data.category.uid
@@ -71,6 +88,12 @@ export default {
         }
       }
       return false
+    },
+    tinyClass () {
+      if (this.tiny) {
+        return ['bg-black', 'text-white']
+      }
+      return ['bg-white', 'text-black']
     }
   }
 }

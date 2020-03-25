@@ -1,6 +1,6 @@
 <template>
-  <div class="w-100 min-h-screen bg-home px-6 pb-6 pt-12 flex flex-col">
-    <div class="bg-black px-10 pt-8 pb-10 flex-grow flex flex-col">
+  <div class="w-100 min-h-screen bg-home px-0 lg:px-6 pb-6 pt-12 flex flex-col">
+    <div class="bg-black px-2 lg:px-10 pt-8 pb-10 flex-grow flex flex-col">
       <h1 class="text-4xl pb-10 uppercase">
         Home
       </h1>
@@ -84,7 +84,7 @@
 import { constrainChars, dateFormatter } from '~/utils/textTools'
 import CategoryTag from '~/components/global/CategoryTag'
 import ReadOnButton from '~/components/global/ReadOnButton'
-import PostCardGrid from '~/components/PostCardGrid'
+import PostCardGrid from '~/components/cards/PostCardGrid'
 
 export default {
   components: {
@@ -100,7 +100,7 @@ export default {
         $prismic.predicates.at('document.type', 'blog-entry'),
         { orderings: '[my.post.date desc]' }
       )
-      console.log({ blogPosts })
+
       return {
         posts: blogPosts.results
         // Page content

@@ -1,6 +1,6 @@
 <template>
-  <div class="w-100 min-h-screen px-6 pb-6 pt-12 flex flex-col" :class="colorClass">
-    <div class="bg-white text-black px-10 pt-8 pb-10 flex-grow flex flex-col">
+  <div class="w-100 min-h-screen px-0 lg:px-6 pb-6 pt-12 flex flex-col" :class="colorClass">
+    <div class="bg-white text-black px-2 lg:px-10 pt-8 pb-10 flex-grow flex flex-col">
       <div id="content" class="max-w-2xl mx-auto">
         <nuxt-link :to="backLink" class="text-xs text-black">
           &larr; back to {{ document.category.uid }}
@@ -18,6 +18,7 @@
           {{ $prismic.asText(document.lead) }}
         </p>
         <slices-block :slices="slices" />
+        <related-cards v-if="related.length >= 2" :related="related" :category="document.category.uid" />
         <button class="text-base text-black mt-16" @click.prevent="scrollToTop">
           &uarr; scroll to top
         </button>
@@ -29,15 +30,21 @@
 <script>
 import { dateFormatter } from '~/utils/textTools'
 import SlicesBlock from '~/components/SlicesBlock'
+import RelatedCards from '~/components/cards/RelatedCards'
 
 export default {
   components: {
-    SlicesBlock
+    SlicesBlock,
+    RelatedCards
   },
   async asyncData ({ $prismic, params, error }) {
     try {
       // Query to get post content
       const post = (await $prismic.api.getByUID('blog-entry', params.uid)).data
+
+      const categoryPosts = await $prismic.api.query(
+        $prismic.predicates.at('document.tags', [`${params.category}`])
+      )
       // Returns data to be used in template
       return {
         document: post,
@@ -46,7 +53,8 @@ export default {
           date: post.last_publication_date,
           language: post.lang,
           uid: post.uid
-        }
+        },
+        related: categoryPosts.results
         // formattedDate: Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).format(new Date(post.date)),
       }
     } catch (e) {

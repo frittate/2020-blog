@@ -47,6 +47,11 @@ h3 {
   @apply text-base mb-5 leading-relaxed;
 }
 
+.textslice a {
+  text-decoration: underline;
+  color: #1438A6;
+}
+
 nav a {
   font-family: 'IBM Plex Sans';
 }
@@ -72,6 +77,10 @@ img {
 
 .grid-cols-postCardGrid {
   justify-items: center;
+}
+
+nav > a:last-of-type {
+  margin-left: auto;
 }
 
 /* Media Queries */

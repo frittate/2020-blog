@@ -1,6 +1,6 @@
 <template>
-  <div class="w-100 min-h-screen px-6 pb-6 pt-12 flex flex-col" :class="colorClass">
-    <div class="bg-black px-10 pt-8 pb-10 flex-grow flex flex-col">
+  <div class="w-100 min-h-screen px-0 lg:px-6 pb-6 pt-12 flex flex-col" :class="colorClass">
+    <div class="bg-black px-2 lg:px-10 pt-8 pb-10 flex-grow flex flex-col">
       <h1 class="text-4xl pb-10 uppercase">
         {{ this.$route.params.category }}
       </h1>
@@ -15,7 +15,7 @@
 
 <script>
 /* eslint-disable no-console */
-import PostCardGrid from '~/components/PostCardGrid'
+import PostCardGrid from '~/components/cards/PostCardGrid'
 export default {
   components: {
     PostCardGrid

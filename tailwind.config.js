@@ -24,9 +24,14 @@ module.exports = {
       },
       minHeight: {
         card: '300px'
+      },
+      flex: {
+        thirds: '0 0 32%'
       }
+    },
+    variants: {
+      marginLeft: ['last']
     }
   },
-  variants: {},
   plugins: []
 }
