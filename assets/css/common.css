@@ -42,7 +42,7 @@ h3 {
   font-weight: 900;
 }
 
-.textslice p {
+.textslice p, li {
   font-family: 'IBM Plex Serif';
   @apply text-base mb-5 leading-relaxed;
 }
@@ -50,6 +50,10 @@ h3 {
 .textslice a {
   text-decoration: underline;
   color: #1438A6;
+}
+
+.textslice ul {
+  list-style-type: square;
 }
 
 nav a {
