@@ -1,9 +1,9 @@
 <template>
   <div>
-    <p class="text-lg font-bold mb-6 pt-6">
-      Related Articles
+    <p class="pl-4 lg:pl-0 text-lg font-bold mb-6 pt-6">
+      related {{ $route.params.category }}
     </p>
-    <div v-show="related" class="flex flex-col md:flex-row justify-between">
+    <div v-show="related" class="px-4 lg:px-0 flex flex-col md:flex-row justify-between">
       <post-card v-for="entry in selection" :key="entry.uid" :entry="entry" tiny />
       <nuxt-link :to="linkDestination" class="flex items-center align-center flex-thirds p-4" :class="colorClass">
         <p class="text-lg">

@@ -1,6 +1,6 @@
 <template>
   <div class="card border flex flex-col flex-1" :class="sizeClass">
-    <p class="py-2 text-xs flex justify-center items-center" :class="colorClass">
+    <p v-if="!tiny" class="py-2 text-xs flex justify-center items-center" :class="colorClass">
       #{{ entry.data.category.uid }}
     </p>
     <div v-if="image && !tiny" class="h-24 overflow-hidden">
