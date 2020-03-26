@@ -19,7 +19,7 @@ export default function (type, element, content, children) {
       result = `<nuxt-link to="${url}">${content}</nuxt-link>`
     } else {
       const target = element.data.target ? `target="'${element.data.target}'" rel="noopener"` : ''
-      result = `<a href="${url}" ${target}>&rarr;&emsp;${content}</a>`
+      result = `<a href="${url}" ${target}>&rarr;&ensp;${content}</a>`
     }
     return result
   }
@@ -27,7 +27,10 @@ export default function (type, element, content, children) {
   // If the image is also a link to a Prismic Document, it will return a <router-link> component
   // Present by default, it is recommended to keep this
   if (type === Elements.image) {
-    let result = `<img src="${element.url}" alt="${element.alt || ''}" copyright="${element.copyright || ''}">`
+    let result = `
+    <figure>
+    <img src="${element.url}" alt="${element.alt || ''}" copyright="${element.copyright || ''}">
+    </figure>`
 
     if (element.linkTo) {
       const url = prismicDOM.Link.url(element.linkTo, linkResolver)

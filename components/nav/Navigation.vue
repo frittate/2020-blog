@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <header>
     <button v-show="!expanded" class="lg:hidden z-10 fixed w-screen bg-home text-center text-3xl text-black font-bold" @click.prevent="toggleMenu">
       Menu
     </button>
@@ -9,7 +9,7 @@
         &times;
       </button>
     </nav>
-  </div>
+  </header>
 </template>
 
 <script>

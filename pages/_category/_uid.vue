@@ -1,28 +1,34 @@
 <template>
   <div class="w-100 min-h-screen px-0 lg:px-6 pb-6 pt-12 flex flex-col" :class="colorClass">
     <div class="bg-white text-black lg:px-10 pt-8 pb-10 flex-grow flex flex-col">
-      <div id="content" class="w-full overflow-x-hidden lg:max-w-2xl mx-auto">
+      <article id="content" class="w-full overflow-x-hidden lg:max-w-2xl mx-auto">
         <nuxt-link :to="backLink" class="text-xs text-black px-2">
           &larr; back to {{ document.category.uid }}
         </nuxt-link>
-        <h1 class="text-4xl mb-4 uppercase px-2">
-          {{ $prismic.asText(document.title) }}
-        </h1>
-        <p class="text-gray-600 text-base mb-8 px-2">
-          {{ formatDate (meta.date) }}
-        </p>
-        <div v-if="Object.keys(document.article_image.card).length" class="mb-16">
-          <img :src="document.article_image.url" alt="">
-        </div>
-        <p class="text-lg font-bold mb-10 px-2">
-          {{ $prismic.asText(document.lead) }}
-        </p>
+        <header>
+          <h1 class="text-4xl mb-4 uppercase px-2">
+            {{ $prismic.asText(document.title) }}
+          </h1>
+          <p class="text-gray-600 text-base mb-8 px-2">
+            <time :datetime="meta.date">
+              {{ formatDate (meta.date) }}
+            </time>
+          </p>
+          <div v-if="Object.keys(document.article_image.card).length" class="mb-16">
+            <img :src="document.article_image.url" alt="">
+          </div>
+          <p class="text-lg font-bold mb-10 px-2">
+            {{ $prismic.asText(document.lead) }}
+          </p>
+        </header>
         <slices-block :slices="slices" />
-        <related-cards v-if="related.length >= 2" :related="related" :category="document.category.uid" />
+        <aside>
+          <related-cards v-if="related.length >= 2" :related="related" :category="document.category.uid" />
+        </aside>
         <button class="text-base text-black mt-16 px-2" @click.prevent="scrollToTop">
           &uarr; scroll to top
         </button>
-      </div>
+      </article>
     </div>
   </div>
 </template>
