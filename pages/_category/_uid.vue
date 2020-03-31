@@ -22,7 +22,7 @@
           </p>
         </header>
         <slices-block :slices="slices" />
-        <aside v-if="document.commentary" class="pl-6 mt-4 mb-4 py-2 border-l border-gray-600">
+        <aside v-if="document.commentary.length" class="pl-6 mt-4 mb-4 py-2 border-l border-gray-600">
           <button class="text-gray-600 text-sm mb-3" @click.prevent="showComment">
             {{ comment ? '- hide commentary' : '+ show commentary' }}
           </button>
@@ -47,6 +47,7 @@ import SlicesBlock from '~/components/SlicesBlock'
 import RelatedCards from '~/components/cards/RelatedCards'
 
 export default {
+  name: 'DetailPost',
   components: {
     SlicesBlock,
     RelatedCards
@@ -54,15 +55,15 @@ export default {
   async asyncData ({ $prismic, params, error }) {
     try {
       // Query to get post content
-      const post = (await $prismic.api.getByUID('blog-entry', params.uid)).data
+      const post = (await $prismic.api.getByUID('blog-entry', params.uid))
 
       const categoryPosts = await $prismic.api.query(
         $prismic.predicates.at('document.tags', [`${params.category}`])
       )
       // Returns data to be used in template
       return {
-        document: post,
-        slices: post.body,
+        document: post.data,
+        slices: post.data.body,
         meta: {
           date: post.last_publication_date,
           language: post.lang,
