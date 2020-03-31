@@ -35,13 +35,22 @@ export default {
       default () {
         return 'home'
       }
+    },
+    id: {
+      type: String,
+      default () {
+        return ''
+      }
     }
   },
   computed: {
     selection () {
       if (this.related) {
-        const _arr = [...this.related]
-        return [...Array(2)].map(() => _arr.splice(Math.floor(Math.random() * _arr.length), 1)[0])
+        // filter out current entry
+        const _arr = [...this.related].filter(el => el.uid !== this.id)
+        // then sample two random
+        const rand = [...Array(2)].map(() => _arr.splice(Math.floor(Math.random() * _arr.length), 1)[0])
+        return rand
       }
       return []
     },

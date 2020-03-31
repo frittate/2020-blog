@@ -1,5 +1,5 @@
 <template>
-  <div class="relative">
+  <div class="relative max-width-hd mx-auto">
     <div id="hack" class="hidden text-stories bg-stories hover:bg-stories border-stories text-home bg-home border-home hover:bg-home text-travel bg-travel border-travel hover:bg-travel text-web bg-web border-web hover:bg-web text-kitchen bg-kitchen border-kitchen hover:bg-kitchen text-thoughts bg-thoughts border-thoughts hover:bg-thoughts text-creative bg-creative border-creative hover:bg-creative">
       .
     </div>

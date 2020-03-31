@@ -7,7 +7,7 @@
       <img :src="image.url" alt="" srcset="">
     </div>
     <div class="content flex flex-col flex-grow" :class="paddingTiny">
-      <h2 class="text-base mb-5">
+      <h2 class="text-lg pl-0  mb-5">
         {{ entry.data.title[0].text }}
       </h2>
       <p v-if="!tiny" class="text-xs flex-grow mb-5">

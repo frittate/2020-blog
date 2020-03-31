@@ -25,6 +25,9 @@ module.exports = {
       minHeight: {
         card: '300px'
       },
+      maxWidth: {
+        hd: '1920px'
+      },
       flex: {
         thirds: '0 0 32%'
       }

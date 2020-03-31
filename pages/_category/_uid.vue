@@ -22,8 +22,16 @@
           </p>
         </header>
         <slices-block :slices="slices" />
+        <aside v-if="document.commentary" class="pl-6 mt-4 mb-4 py-2 border-l border-gray-600">
+          <button class="text-gray-600 text-sm mb-3" @click.prevent="showComment">
+            {{ comment ? '- hide commentary' : '+ show commentary' }}
+          </button>
+          <div v-show="comment" class="text-gray-600 text-sm pt-4">
+            {{ $prismic.asText(document.commentary) }}
+          </div>
+        </aside>
         <aside>
-          <related-cards v-if="related.length >= 2" :related="related" :category="document.category.uid" />
+          <related-cards v-if="related.length >= 2" :id="$route.params.uid" :category="document.category.uid" :related="related" />
         </aside>
         <button class="text-base text-black mt-16 px-2" @click.prevent="scrollToTop">
           &uarr; scroll to top
@@ -68,6 +76,11 @@ export default {
       error({ statusCode: 404, message: 'Page not found' })
     }
   },
+  data () {
+    return {
+      comment: false
+    }
+  },
   computed: {
     colorClass () {
       if (this.document.category.uid) {
@@ -85,6 +98,9 @@ export default {
     },
     scrollToTop () {
       window.scrollTo({ top: 0, behavior: 'smooth' })
+    },
+    showComment () {
+      this.comment = !this.comment
     }
   },
   head () {
