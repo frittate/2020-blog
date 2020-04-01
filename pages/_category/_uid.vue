@@ -106,7 +106,7 @@ export default {
   },
   head () {
     return {
-      title: `ADV [${this.document.title[0].text} -- ${this.$route.params.category}] | Sebastian Martin`
+      title: `${this.document.title[0].text} [${this.$route.params.category}] ADV | Sebastian Martin | Blog`
     }
   }
 }

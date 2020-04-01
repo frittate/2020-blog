@@ -43,7 +43,7 @@ export default {
   },
   head () {
     return {
-      title: `ADV [${this.$route.params.category}] | Sebastian Martin`
+      title: `[${this.$route.params.category}] ADV | Sebastian Martin | Blog`
     }
   }
 }
