@@ -65,7 +65,7 @@ export default {
         document: post.data,
         slices: post.data.body,
         meta: {
-          date: post.last_publication_date,
+          date: post.first_publication_date,
           language: post.lang,
           uid: post.uid
         },
