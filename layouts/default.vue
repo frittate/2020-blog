@@ -31,6 +31,10 @@ html {
   box-sizing: border-box;
 }
 
+body {
+  background: #000;
+}
+
 *,
 *:before,
 *:after {

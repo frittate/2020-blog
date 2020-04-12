@@ -141,8 +141,11 @@ export default {
       return this.posts
     },
     postsWithoutFeatured () {
-      const entry = this.posts.filter(el => !el.data.featured)
-      if (entry.length) { return entry }
+      let entry = this.posts.filter(el => !el.data.featured)
+      entry = entry.sort((a, b) => {
+        return new Date(a.last_publication_date) > new Date(b.last_publication_date)
+      })
+      if (entry.length) { return entry.slice(0, 10) }
       return this.posts
     }
   },
