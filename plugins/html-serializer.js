@@ -70,7 +70,7 @@ export default function (type, element, content, children) {
       return `<p>${children.join('')}</p>`
 
     case Elements.preformatted:
-      return `<pre>${children.join('')}</pre>`
+      return `<pre class="bg-gray-100 border border-coding p-4 text-base font-mono rounded">${children.join('')}</pre>`
 
     case Elements.strong:
       return `<strong>${children.join('')}</strong>`
