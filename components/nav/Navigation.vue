@@ -28,8 +28,8 @@ export default {
         },
         {
           id: 1,
-          url: 'web',
-          name: 'Web Development'
+          url: 'coding',
+          name: 'Coding'
         },
         {
           id: 2,

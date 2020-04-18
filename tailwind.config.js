@@ -11,7 +11,7 @@ module.exports = {
         stories: '#F2CB05',
         home: '#F2E205',
         travel: '#0D1440',
-        web: '#1438A6',
+        coding: '#1438A6',
         kitchen: '#BF1736',
         thoughts: '#3FEF3C',
         creative: '#751861'
