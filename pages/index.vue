@@ -99,29 +99,9 @@ import PostCardGrid from '~/components/cards/PostCardGrid'
 
 export default {
   components: {
-    // Logo
     CategoryTag,
     ReadOnButton,
     PostCardGrid
-  },
-  async asyncData ({ $prismic, error }) {
-    try {
-      // Query to get the home page content
-      const blogPosts = await $prismic.api.query(
-        $prismic.predicates.at('document.type', 'blog-entry'),
-        { orderings: '[my.post.date desc]' }
-      )
-
-      return {
-        posts: blogPosts.results
-        // Page content
-        /* banner: homepage.homepage_banner[0], */
-        // Set slices as variable
-        /* slices: homepage.page_content */
-      }
-    } catch (e) {
-      error({ statusCode: 404, message: 'Page not found' })
-    }
   },
   computed: {
     firstFeatured () {
@@ -134,19 +114,19 @@ export default {
       return this.featuredPosts[2]
     },
     featuredPosts () {
-      const featured = this.posts.filter(el => el.data.featured)
+      const featured = this.$store.state.articles.filter(el => el.data.featured)
       if (featured.length) {
         return featured.map(a => [Math.random(), a]).sort((a, b) => a[0] - b[0]).map(a => a[1])
       }
-      return this.posts
+      return this.$store.state.articles
     },
     postsWithoutFeatured () {
-      let entry = this.posts.filter(el => !el.data.featured)
+      let entry = this.$store.state.articles.filter(el => !el.data.featured)
       entry = entry.sort((a, b) => {
         return new Date(a.last_publication_date) > new Date(b.last_publication_date)
       })
       if (entry.length) { return entry.slice(0, 10) }
-      return this.posts
+      return this.$store.state.articles
     }
   },
   methods: {
