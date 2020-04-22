@@ -52,37 +52,59 @@ export default {
     SlicesBlock,
     RelatedCards
   },
-  async asyncData ({ $prismic, params, error }) {
-    try {
-      // Query to get post content
-      const post = (await $prismic.api.getByUID('blog-entry', params.uid))
+  // async asyncData ({ $prismic, params, error }) {
+  // try {
+  // Query to get post content
+  /*  const post = (await $prismic.api.getByUID('blog-entry', params.uid))
 
       const categoryPosts = await $prismic.api.query(
         $prismic.predicates.at('document.tags', [`${params.category}`])
-      )
-      // Returns data to be used in template
-      return {
-        document: post.data,
-        slices: post.data.body,
+      ) */
+  // Returns data to be used in template
+  // return {
+  // document: post.data,
+  /* slices: post.data.body,
         meta: {
           date: post.first_publication_date,
           language: post.lang,
           uid: post.uid
         },
-        related: categoryPosts.results
-        // formattedDate: Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).format(new Date(post.date)),
-      }
-    } catch (e) {
-      // Returns error page
-      error({ statusCode: 404, message: 'Page not found' })
-    }
-  },
+        related: categoryPosts.results */
+  // formattedDate: Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).format(new Date(post.date)),
+  // }
+  // } catch (e) {
+  // Returns error page
+  // error({ statusCode: 404, message: 'Page not found' })
+  // }
+  // },
   data () {
     return {
       comment: false
     }
   },
   computed: {
+    documentAll () {
+      const article = this.$store.state.articles.filter(el => el.uid === this.$route.params.uid)
+      // eslint-disable-next-line no-console
+      // console.log(this.$store.state, this.$store.state.articles.filter(el => el.uid === this.$route.params.uid), article)
+      return article[0]
+    },
+    document () {
+      return this.documentAll.data
+    },
+    slices () {
+      return this.document.body
+    },
+    meta () {
+      return {
+        date: this.documentAll.first_publication_date,
+        language: this.documentAll.lang,
+        uid: this.documentAll.uid
+      }
+    },
+    related () {
+      return this.$store.state.articles.filter(el => el.tags.includes(this.documentAll.tags[0]))
+    },
     colorClass () {
       if (this.document.category.uid) {
         return [`bg-${this.document.category.uid}`]

@@ -20,20 +20,10 @@ export default {
   components: {
     PostCardGrid
   },
-  async asyncData ({ $prismic, error, params }) {
-    try {
-      const blogPosts = await $prismic.api.query(
-        $prismic.predicates.at('document.tags', [`${params.category}`]),
-        { orderings: '[my.post.date desc]' }
-      )
-      return {
-        posts: blogPosts.results
-      }
-    } catch (e) {
-      error({ statusCode: 404, message: 'Page not found' })
-    }
-  },
   computed: {
+    posts () {
+      return this.$store.state.articles.filter(el => el.tags.includes(this.$route.params.category))
+    },
     colorClass () {
       if (this.$route.params.category) {
         return [`bg-${this.$route.params.category}`]

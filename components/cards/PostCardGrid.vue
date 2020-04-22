@@ -1,6 +1,6 @@
 <template>
   <div v-if="entries.length" class="grid grid-cols-postCardGrid gap-10 justify-center">
-    <post-card v-for="entry in entries" :key="entry.uid" :entry="entry" />
+    <post-card v-for="entry in entries" :key="entry.id" :entry="entry" />
   </div>
   <div v-else>
     <p class="text-base text-white">
