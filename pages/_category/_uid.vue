@@ -31,7 +31,7 @@
           </div>
         </aside>
         <aside>
-          <related-cards v-if="related.length >= 2" :uid="$route.params.uid" :category="document.category.uid" :related="related" />
+          <related-cards v-if="related.length > 2" :uid="$route.params.uid" :category="document.category.uid" :related="related" />
         </aside>
         <button class="text-base text-black mt-16 px-2" @click.prevent="scrollToTop">
           &uarr; scroll to top
