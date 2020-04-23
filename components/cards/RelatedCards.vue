@@ -47,7 +47,7 @@ export default {
     selection () {
       if (this.related) {
         // filter out current entry
-        const _arr = [...this.related].filter(el => el.uid !== this.id)
+        const _arr = [...this.related].filter(el => el.uid !== this.uid)
         // then sample two random
         const rand = [...Array(2)].map(() => _arr.splice(Math.floor(Math.random() * _arr.length), 1)[0])
         return rand
