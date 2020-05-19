@@ -24,7 +24,7 @@ export default {
     try {
       const blogPosts = await $prismic.api.query(
         $prismic.predicates.at('document.tags', [`${params.category}`]),
-        { orderings: '[my.post.date desc]' }
+        { orderings: '[document.last_publication_date desc]' }
       )
       return {
         posts: blogPosts.results

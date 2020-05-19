@@ -109,7 +109,7 @@ export default {
       // Query to get the home page content
       const blogPosts = await $prismic.api.query(
         $prismic.predicates.at('document.type', 'blog-entry'),
-        { orderings: '[my.post.date desc]' }
+        { orderings: '[document.last_publication_date desc]' }
       )
 
       return {
@@ -141,10 +141,7 @@ export default {
       return this.posts
     },
     postsWithoutFeatured () {
-      let entry = this.posts.filter(el => !el.data.featured)
-      entry = entry.sort((a, b) => {
-        return new Date(a.last_publication_date) > new Date(b.last_publication_date)
-      })
+      const entry = this.posts.filter(el => !el.data.featured)
       if (entry.length) { return entry.slice(0, 10) }
       return this.posts
     }
