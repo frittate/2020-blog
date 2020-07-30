@@ -123,17 +123,13 @@ export default {
     }
   },
   head () {
-    const href = window.location.href
     return {
       title: `${this.document.title[0].text} [${this.$route.params.category}] ADV | Sebastian Martin | Blog`,
-      meta: [...this.headerMeta, {
-        property: 'og:url',
-        content: href
-      },
-      {
-        property: 'og:type',
-        content: 'article'
-      }
+      meta: [...this.headerMeta,
+        {
+          property: 'og:type',
+          content: 'article'
+        }
       ]
     }
   }
