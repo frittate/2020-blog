@@ -64,29 +64,25 @@ export default {
       return {
         document: post.data,
         slices: post.data.body,
-        meta: [
+        meta: {
+          date: post.first_publication_date,
+          language: post.lang,
+          uid: post.uid
+        },
+        headerMeta: [
           {
-            hid: 'date',
-            name: 'date',
+            property: 'og:article:published_time',
             content: post.first_publication_date
           },
           {
-            hid: 'language',
-            name: 'language',
+            property: 'og:locale',
             content: post.lang
           },
           {
-            hid: 'uid',
-            name: 'uid',
-            content: post.uid
-          },
-          {
-            hid: 'ogtitle',
             property: 'og:title',
             content: post.data.title[0].text
           },
           {
-            hid: 'ogimage',
             property: 'og:image',
             content: post.data.article_image.url
           }
@@ -127,17 +123,16 @@ export default {
     }
   },
   head () {
+    const href = window.location.href
     return {
       title: `${this.document.title[0].text} [${this.$route.params.category}] ADV | Sebastian Martin | Blog`,
-      meta: [...this.meta, {
-        hid: 'ogurl',
+      meta: [...this.headerMeta, {
         property: 'og:url',
-        content: window.location.href
+        content: href
       },
       {
-        hid: 'ogtype',
         property: 'og:type',
-        content: 'website'
+        content: 'article'
       }
       ]
     }
