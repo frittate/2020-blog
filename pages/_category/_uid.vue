@@ -1,16 +1,16 @@
 <template>
   <div class="w-100 min-h-screen px-0 lg:px-6 pb-6 pt-12 flex flex-col" :class="colorClass">
     <div class="bg-white text-black lg:px-10 pt-8 pb-10 flex-grow flex flex-col">
-      <article id="content" class="w-full overflow-x-hidden lg:max-w-2xl mx-auto">
+      <article id="content" class="w-full overflow-x-hidden lg:max-w-2xl mx-auto" itemscope itemtype="http://schema.org/BlogPosting">
         <nuxt-link :to="backLink" class="text-xs text-black px-2">
           &larr; back to {{ document.category.uid }}
         </nuxt-link>
         <header>
-          <h1 class="text-4xl mb-4 uppercase px-2">
+          <h1 class="text-4xl mb-4 uppercase px-2" itemprop="headline">
             {{ $prismic.asText(document.title) }}
           </h1>
           <p class="text-gray-600 text-base mb-8 px-2">
-            <time :datetime="meta.date">
+            <time :datetime="meta.date" itemprop="dateCreated pubdate datePublished">
               {{ formatDate (meta.date) }}
             </time>
           </p>
@@ -21,7 +21,7 @@
             {{ $prismic.asText(document.lead) }}
           </p>
         </header>
-        <slices-block :slices="slices" />
+        <slices-block :slices="slices" itemprop="articleBody" />
         <aside v-if="document.commentary.length" class="pl-6 mt-4 mb-4 py-2 border-l border-gray-600">
           <button class="text-gray-600 text-sm mb-3" @click.prevent="showComment">
             {{ comment ? '- hide commentary' : '+ show commentary' }}
@@ -64,11 +64,33 @@ export default {
       return {
         document: post.data,
         slices: post.data.body,
-        meta: {
-          date: post.first_publication_date,
-          language: post.lang,
-          uid: post.uid
-        },
+        meta: [
+          {
+            hid: 'date',
+            name: 'date',
+            content: post.first_publication_date
+          },
+          {
+            hid: 'language',
+            name: 'language',
+            content: post.lang
+          },
+          {
+            hid: 'uid',
+            name: 'uid',
+            content: post.uid
+          },
+          {
+            hid: 'ogtitle',
+            property: 'og:title',
+            content: post.data.title[0].text
+          },
+          {
+            hid: 'ogimage',
+            property: 'og:image',
+            content: post.data.article_image.url
+          }
+        ],
         related: categoryPosts.results
         // formattedDate: Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).format(new Date(post.date)),
       }
@@ -106,7 +128,18 @@ export default {
   },
   head () {
     return {
-      title: `${this.document.title[0].text} [${this.$route.params.category}] ADV | Sebastian Martin | Blog`
+      title: `${this.document.title[0].text} [${this.$route.params.category}] ADV | Sebastian Martin | Blog`,
+      meta: [...this.meta, {
+        hid: 'ogurl',
+        property: 'og:url',
+        content: window.location.href
+      },
+      {
+        hid: 'ogtype',
+        property: 'og:type',
+        content: 'website'
+      }
+      ]
     }
   }
 }
