@@ -18,6 +18,19 @@ export default {
       { rel: 'manifest', href: '/site.webmanifest' },
 
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@700&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap' }
+    ],
+    script: [
+      {
+        hid: 'fathom', // unique identifier
+        src: 'https://cdn.usefathom.com/script.js',
+        site: 'GRPKXUBV',
+        spa: 'auto', // set by fathom
+        defer: 'defer',
+        once: true, // only load once on SSR
+
+        // optional: skip loading script if we aren't in production
+        skip: false
+      }
     ]
   },
   /*
